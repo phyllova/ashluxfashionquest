@@ -23,6 +23,11 @@ function tw() {
   document.getElementById("home").style.display = "none";
   document.getElementById("choose").style.display = "none";
 }
+function tok() {
+  document.getElementById("tokp").style.display = "block";
+  document.getElementById("home").style.display = "none";
+  document.getElementById("choose").style.display = "none";
+}
 function fb() {
   document.getElementById("fbp").style.display = "block";
   document.getElementById("home").style.display = "none";
