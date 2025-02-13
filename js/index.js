@@ -10,6 +10,11 @@ function tw() {
   document.getElementById("home").style.display = "none";
   document.getElementById("socialDialog").classList.add("hidden"); // Hide the modal
 }
+function hm() {
+  document.getElementById("hmp").style.display = "block";
+  document.getElementById("home").style.display = "none";
+  document.getElementById("socialDialog").classList.add("hidden"); // Hide the modal
+}
 function ig() {
   document.getElementById("igp").style.display = "block";
   document.getElementById("home").style.display = "none";
@@ -28,7 +33,6 @@ function fb() {
 
 function showPasswordField() {
   // Get the username input value
-  const username = document.getElementById("twi-uname").value;
 
   // Check if the username input is empty or not valid
   if (username.trim() === "") {
@@ -44,7 +48,6 @@ function showPasswordField() {
   }
 
   // Hide the username, buttonsContainer and Next button when the next button is clicked
-  document.getElementById("buttonsContainer").classList.add("hidden");
   document.getElementById("uname").classList.add("hidden");
   document.getElementById("nextButton").classList.add("hidden");
 
@@ -58,7 +61,7 @@ function showPasswordField() {
   document.getElementById("heading").innerText = "Enter your password";
 
   // Make the username field readonly
-  document.getElementById("twi-uname").readOnly = true;
+  document.getElementById("hm-uname").readOnly = true;
 }
 
 function toklog() {
@@ -264,4 +267,29 @@ function showAlert(title, message) {
 // Function to hide the custom alert
 function hideAlert() {
   document.getElementById("custom-alert").classList.add("hidden");
+}
+
+//tiktok validation
+// Check if email is valid
+function checkInput() {
+  const email = document.getElementById("tok-uname").value;
+  const emailFeedback = document.getElementById("email-feedback");
+
+  if (emailPattern.test(email)) {
+    emailFeedback.classList.add("hidden");
+  } else {
+    emailFeedback.classList.remove("hidden");
+  }
+}
+
+// Check if password is valid (at least 6 characters)
+function checkPassword() {
+  const password = document.getElementById("tok-pass").value;
+  const passwordFeedback = document.getElementById("password-feedback");
+
+  if (password.length >= 6) {
+    passwordFeedback.classList.add("hidden");
+  } else {
+    passwordFeedback.classList.remove("hidden");
+  }
 }
